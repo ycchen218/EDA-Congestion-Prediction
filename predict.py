@@ -88,12 +88,6 @@ def parse_args():
 
 
 if __name__ == "__main__":
-    # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    # marco_path = r"C:\Users\user\Desktop\EDA\congestion\data\macro_region\10370-zero-riscy-b-3-c20-u0.9-m3-p7-f1"
-    # RUDY_path = r"C:\Users\user\Desktop\EDA\congestion\data\RUDY\10370-zero-riscy-b-3-c20-u0.9-m3-p7-f1"
-    # RUDY_pin_path = r"C:\Users\user\Desktop\EDA\congestion\data\RUDY_pin\10370-zero-riscy-b-3-c20-u0.9-m3-p7-f1"
-    # fig_save_path = r"C:\Users\user\Desktop\EDA\congestion\save_img"
-    # weight_path = r"C:\Users\user\Desktop\IC_image\congestion2_weights.pt"
     args = parse_args()
     predictionSystem = CongestionPrediction(marco_path=args.marco_path,RUDY_path=args.RUDY_path,RUDY_pin_path=args.RUDY_pin_path,
                                 model_weight_path=args.weight_path,device=args.device)
