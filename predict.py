@@ -44,9 +44,10 @@ class CongestionPrediction():
         features = torch.stack(features).type(torch.float32)
         return features
 
-    def find_congestion_coord(self,tensor, threshold):
-        indices = torch.where(tensor > threshold)
-        return np.array(list((indices[1].tolist(), indices[0].tolist()))).T
+    def find_congestion_coord_and_value(self,tensor, threshold):
+        indices = torch.where(tensor >= threshold)
+        values = self.std(tensor[indices])
+        return np.array(list((indices[1].tolist(), indices[0].tolist(),values.tolist()))).T
 
     def Prediction(self, congestion_threshold):
         self.congestion_threshold = congestion_threshold
@@ -57,17 +58,18 @@ class CongestionPrediction():
         if self.device == 'cpu':
             self.pred = self.model(self.feature)
             self.pred = self.model.sigmoid(self.pred)
-        self.pred_coord = self.find_congestion_coord(self.pred[0,0], threshold=congestion_threshold)
-        self.pred_coord = pd.DataFrame(self.pred_coord,columns=['x','y'])
+        self.pred_coord = self.find_congestion_coord_and_value(self.pred.squeeze(), threshold=congestion_threshold)
+        self.pred_coord = pd.DataFrame(self.pred_coord,columns=['x','y','congestion'])
         return self.pred, self.pred_coord
 
     def ShowFig(self,fig_save_path):
         if fig_save_path is None:
             raise ValueError("Figure save path is not specified clear.")
-        plt.imshow(self.pred[0, 0].detach().cpu().numpy())
+        plt.imshow(self.feature[0,0].detach().cpu().numpy())
         plt.title(f"Congestion > {self.congestion_threshold}")
-        pts = plt.scatter(x=self.pred_coord['x'],y=self.pred_coord['y'],c='r',s=5)
-        plt.legend([pts],["Congestion locate"])
+        pts = plt.scatter(x=self.pred_coord['x'],y=self.pred_coord['y'],c=self.pred_coord['congestion'],cmap='jet',s=5)
+        # plt.legend([pts],["Congestion locate"])
+        plt.colorbar()
         plt.savefig(f"{fig_save_path}/congestion_{self.congestion_threshold}.png")
         plt.show()
 
@@ -83,7 +85,7 @@ def parse_args():
     parser.add_argument("--fig_save_path", default="./save_img", type=str, help='The path you want to save fingue')
     parser.add_argument("--weight_path", default="./model_weight/congestion2_weights.pt", type=str, help='The path of the model weight')
     parser.add_argument("--output_path", default="./output", type=str, help='The path of the model weight')
-    parser.add_argument("--congestion_threshold", default=0.5, type=int, help='congestion_threshold [0,1]')
+    parser.add_argument("--congestion_threshold", default=0.2, type=float, help='congestion_threshold [0,1]')
     parser.add_argument("--device", default='cpu', type=str, help='If you have gpu type "cuda" will be faster!!')
     args = parser.parse_args()
     return args
