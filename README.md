@@ -38,8 +38,10 @@ python predict.py
 1. Tune your own congestion_threshold, the defalt is 0.5 as shown in following figure.
 2. The output coordinate csv file and image array npy file are in the ./output file.
 3. The model predict cost time is **0.71 ~ 1.8 sec**.
+4. Congestion value: $normalize(\frac{overflow}{totaltracks})$.
 
-![image](https://github.com/ycchen218/EDA-Congestion-Prediction/blob/master/save_img/congestion_0.5.png)
+
+![image](https://github.com/ycchen218/EDA-Congestion-Prediction/blob/master/save_img/congestion_0.2.png)
 ## Compare with ground truth
 ![image](https://github.com/ycchen218/EDA-Congestion-Prediction/blob/master/git_image/compare1.png)
 ## Cross validation while evalulate the model
