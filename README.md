@@ -12,6 +12,8 @@ This is a deep-learning-based model used to predict the location of congestion. 
 4. numpy
 5. pandas
 6. pytorch 1.12.0
+7. tqdm
+8. pytorch_msssim
 ## Model Overview
 ![image](https://github.com/ycchen218/EDA-Congestion-Prediction/blob/master/git_image/Congestion_overview.png)
 ## Train
