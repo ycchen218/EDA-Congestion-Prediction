@@ -1,4 +1,8 @@
 # EDA Congestion Prediction
+## Update
+- 2023/6/24
+
+  Add the train.py file.
 ## Introduce
 This is a deep-learning-based model used to predict the location of congestion. We achieved an SSIM score of 0.863. During the prediction process, we incorporate the macro region feature, and Rectangular Uniform Wire Density (RUDY)**[1]**, which serves as an early estimation of routing demand after placement. and also consider the RUDY pins, which are calculated based on individual pins and the nets connected to them.
 ## Requirement
@@ -10,7 +14,16 @@ This is a deep-learning-based model used to predict the location of congestion. 
 6. pytorch 1.12.0
 ## Model Overview
 ![image](https://github.com/ycchen218/EDA-Congestion-Prediction/blob/master/git_image/Congestion_overview.png)
-
+## Train
+```markdown
+python train.py
+```
+--root_path: The path of the data file <br>
+--batch_size: The batch size figure <br>
+--num_epochs: The training epochs <br>
+--learning_rate: learning rate [0,1] <br>
+--weight_path: The path to save the model weight <br>
+--fig_path: The path of the figure file <br>
 ## Predict
 ```markdown
 python predict.py
