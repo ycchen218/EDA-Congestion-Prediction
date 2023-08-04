@@ -1,6 +1,9 @@
 # EDA Congestion Prediction
 ## Update
-- 2023/6/24
+- 2023/08/04
+
+  Add model overview.
+- 2023/06/24
 
   Add the train.py file.
 ## Introduce
@@ -15,7 +18,7 @@ This is a deep-learning-based model used to predict the location of congestion. 
 7. tqdm
 8. pytorch_msssim
 ## Model Overview
-![image](https://github.com/ycchen218/EDA-Congestion-Prediction/blob/master/git_image/Congestion_overview.png)
+![image](https://github.com/ycchen218/EDA-Congestion-Prediction/blob/master/git_image/congestion_model.png)
 ## Train
 ```markdown
 python train.py
